@@ -38,7 +38,7 @@ export async function createTweet(text, name, username) {
         username,
     };
     tweets = [tweet, ...tweets];
-    return tweets;
+    return tweet;
 }
 
 export async function updateTweet(id, text) {

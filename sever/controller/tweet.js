@@ -27,11 +27,12 @@ export async function getTweet(req, res) {
 export async function postTweet(req, res) {
     const {text, name, username } = req.body;
     const tweet = await tweetRepository.createTweet(text, name, username);
-    if(tweet) {
-        res.status(201).json(tweet);
-    } else {
-        res.status(400).json({message: `Fail to make new post`});
-    }
+    // if(tweet) {
+    //     res.status(201).json(tweet);
+    // } else {
+    //     res.status(400).json({message: `Fail to make new post`});
+    // }
+    res.status(201).json(tweet);
 }
 
 export async function updateTweet(req, res) {

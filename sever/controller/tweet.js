@@ -2,21 +2,22 @@ import * as tweetRepository from '../data/tweet.js';
 
 export async function getTweets(req, res) {
     const username = req.query.username;
-    const data = (await username 
-      ? tweetRepository.getallTweetsByUsername(username)
-      : tweetRepository.getAllTweets);
+    const data = await (username 
+        ? tweetRepository.getAllTweetsByUsername(username)
+        : tweetRepository.getAllTweets());
     // console.log(data);
-    if (data) {
-        res.status(200).json(data);
-    } else {
-        res.sendStatus(404);
-    }
+    // if (data) {
+    //     res.status(200).json(data);
+    // } else {
+    //     res.sendStatus(404);
+    // }
+    res.status(200).json(data);
 }
 
 export async function getTweet(req, res) {
     const id = req.params.id;
     const tweet = await tweetRepository.getAllTweetsById(id);
-    if(tweet) {
+    if (tweet) {
         res.status(200).json(tweet);
     } else {
         res.status(404).json({message: `Tweet id(${id}) is not exist`});

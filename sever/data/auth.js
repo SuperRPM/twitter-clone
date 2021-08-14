@@ -5,6 +5,5 @@ export async function getHashed(dataArray) {
     const password = dataArray[0];
     const hashed = bcrypt.hashSync(password, 10);
     dataArray[0] = hashed;
-    console.log(dataArray);
     return dataArray;
 }

@@ -7,10 +7,10 @@ import { validate } from '../middleware/validator.js';
 const router = express.Router();
 
 // POST /auth/signup
-router.get('/signup', authController.signup);
+router.post('/signup', authController.signup);
 
 // POST/auth/login
-router.get('/login', authController.login);
+router.post('/login', authController.login);
 
 // POST /auth/me
 router.post('/me', authController.me);

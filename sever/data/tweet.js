@@ -1,3 +1,5 @@
+import * as userDatabase from './auth.js';
+
 let tweets = [
     {
         id: '1',
@@ -14,11 +16,20 @@ let tweets = [
 ];
 
 export async function getAllTweets() {
-    return tweets;
+    return Promise.all(
+        tweets.map(async (tweet) => {
+            const { username, name, url } = await userDatabase.findAlreadyExist(
+                tweet.userId
+            );
+            return { ...tweet, username, name, url };
+        })
+    )
 }
 
 export async function getAllTweetsByUsername(username) {
-    return tweets.filter((tweet) => tweet.username === username);
+    return getAllTweets().then((tweet) =>
+        tweets.filter((tweet) => tweet.username === username);
+    );
 }
 
 export async function getAllTweetsById(id) {

@@ -28,11 +28,11 @@ export async function login(req, res) {
     const { username, password } = req.body;
     const user = await userDatabase.findAlreadyExist(username);
     if (!user) {
-        return res.status(401).json( { message: '아이디 잘못 쓴거 같은뒈?' });
+        return res.status(401).json( { message: '아이디랑 비밀번호를 확인하세용' });
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-        return res.status(401).json({ message: '님 비밀번호 잘못 씀' });
+        return res.status(401).json({ message: '아이디랑 비밀번호 확인해야쥐? 잘못썼쥐?' });
     }
     const token = createJwtToken(user.id);
     res.status(200).json({ token, username });

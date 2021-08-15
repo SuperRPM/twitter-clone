@@ -7,7 +7,7 @@ const bcryptSalt = 10;
 const secret = 'Bp8:M")g8y;Gxv%vP>Q/*s2d3KKmw+Cb';
 
 export async function signup(req, res) {
-    const { username, name, email, photo, password } = req.body;
+    const { username, name, email, url, password } = req.body;
     //아이디 중복 가입 방지
     const exist = await userDatabase.findAlreadyExist(username);
     if (exist) {

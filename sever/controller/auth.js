@@ -9,7 +9,7 @@ const secret = 'Bp8:M")g8y;Gxv%vP>Q/*s2d3KKmw+Cb';
 export async function signup(req, res) {
     const { username, name, email, url, password } = req.body;
     //아이디 중복 가입 방지
-    const exist = await userDatabase.findAlreadyExist(username);
+    const exist = await userDatabase.findByUsername(username);
     if (exist) {
         return res.status(409).json({ message: `${username}은(는) 이미 사용되고 있눈뒈?`});
     }
@@ -28,7 +28,7 @@ export async function signup(req, res) {
 
 export async function login(req, res) {
     const { username, password } = req.body;
-    const user = await userDatabase.findAlreadyExist(username);
+    const user = await userDatabase.findByUsername(username);
     if (!user) {
         return res.status(401).json( { message: '아이디랑 비밀번호를 확인하세용' });
     }
@@ -46,7 +46,7 @@ function createJwtToken(id) {
 
 
 export async function me(req, res, next) {
-    const user = await userDatabase.findAlreadyExist(req.userId);
+    const user = await userDatabase.findById(req.userId);
     if (!user) {
         return res.status(404).json({ message: 'User not found' });
     }

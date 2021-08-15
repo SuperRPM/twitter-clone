@@ -11,8 +11,8 @@ let users = [
     }
 ]
 
-export async function findAlreadyExist(usernmae) {
-    return users.find((user) => user.user.name === username);
+export async function findAlreadyExist(username) {
+    return users.find((user) => user.name === username);
 }
 
 export async function createUser(user) {

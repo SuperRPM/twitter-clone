@@ -43,12 +43,12 @@ export async function getAllTweetsById(id) {
 
 export async function createTweet(text, userId) {
     const tweet = {
-        id: Date().toString(),
+        id: new Date().toString(),
         text,
         createdAt: new Date(),
         userId,
     };
-    tweets = [tweet, ...tweets];
+    tweets = [tweet, ...tweets]; console.log(tweet.id);
     return getAllTweetsById(tweet.id);
 }
 

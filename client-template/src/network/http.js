@@ -1,6 +1,7 @@
 export default class HttpClient {
-    constructor(baseURL) {
-        this.baseURL = baseURL
+    constructor(baseURL, authErrorEventBus) {
+        this.baseURL = baseURL;
+        this.authErrorEventBus = authErrorEventBus;
     }
 
     async fetch(url, options) {

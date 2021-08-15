@@ -6,7 +6,7 @@ let users = [
         password: '$2b$10$f7wVEiSRKADpmmb5vGez3OvnOrWfP.XTA2ceWGOVAixNto4I0aByi',
         name: 'karina',
         email: 'karina@gmail.com',
-        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn_BS1xILeuONueloN87f7gLKyvUMytHchkQ&usqp=CAU';
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn_BS1xILeuONueloN87f7gLKyvUMytHchkQ&usqp=CAU',
 
     }
 ]

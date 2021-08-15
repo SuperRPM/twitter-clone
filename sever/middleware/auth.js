@@ -6,21 +6,22 @@ const AUTH_ERROR = { message: 'Authentication Error' };
 export const isAuth = async (req, res, next) => {
     const authHeader = req.get('Authorization');
     if (!(authHeader && authHeader.startsWith('Bearer '))) {
-        return res.status(401).json(AUTH_ERROR);
+        return res.status(401).json({ mesaage: "error" });
     }
 
     const token = authHeader.split(' ')[1];
 
     jwt.verify(
         token,
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2MjkwMTI5NDg2MTAiLCJpYXQiOjE2MjkwMTI5NTEsImV4cCI6MTYyOTE4NTc1MX0.coweDME8af2izf-5JsqMVaeWZ8nh2P5ob4bfDItLFwA',
+        'Bp8:M")g8y;Gxv%vP>Q/*s2d3KKmw+Cb',
         async (error, decoded) => {
             if (error) {
-                return res.status(401).json(AUTH_ERROR);
+                return res.status(401).json({ message: 'decode 실패' });
             }
             const user = await userDatabase.findAlreadyExist(decoded.id);
+            console.log(decoded);
             if(!user) {
-                return res.status(401).json(AUTH_ERROR);
+                return res.status(401).json({ message: "그런 유저 없는데?" });
             }
             req.userId = user.id; //req.custonData 새로 등록
             next();

@@ -28,7 +28,7 @@ export async function getAllTweets() {
 
 export async function getAllTweetsByUsername(username) {
     return getAllTweets().then((tweet) =>
-        tweets.filter((tweet) => tweet.username === username);
+        tweets.filter((tweet) => tweet.username === username)
     );
 }
 

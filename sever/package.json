@@ -4,7 +4,6 @@
   "description": "clone coding twitter",
   "main": "app.js",
   "type": "module",
-  "allowSytheticDefaultImports": "true",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app"
@@ -20,13 +19,14 @@
   },
   "homepage": "https://github.com/SuperRPM/twitter-clone#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.12.1",
     "helmet": "^4.6.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "bcrypt": "^5.0.1",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

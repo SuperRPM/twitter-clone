@@ -45,6 +45,10 @@ function createJwtToken(id) {
 }
 
 
-// export function me(req, res) {
-
-// }
+export async function me(req, res, next) {
+    const user = await userDatabase.findAlreadyExist(req.userId);
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ token: req.token, username: user.username });
+}

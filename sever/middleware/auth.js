@@ -18,8 +18,7 @@ export const isAuth = async (req, res, next) => {
             if (error) {
                 return res.status(401).json({ message: 'decode 실패' });
             }
-            const user = await userDatabase.findAlreadyExist(decoded.id);
-            console.log(decoded);
+            const user = await userDatabase.findById(decoded.id);
             if(!user) {
                 return res.status(401).json({ message: "그런 유저 없는데?" });
             }

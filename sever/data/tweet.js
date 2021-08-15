@@ -18,7 +18,7 @@ let tweets = [
 export async function getAllTweets() {
     return Promise.all(
         tweets.map(async (tweet) => {
-            const { username, name, url } = await userDatabase.findAlreadyExist(
+            const { username, name, url } = await userDatabase.findById(
                 tweet.userId
             );
             return { ...tweet, username, name, url };
@@ -27,7 +27,7 @@ export async function getAllTweets() {
 }
 
 export async function getAllTweetsByUsername(username) {
-    return getAllTweets().then((tweet) =>
+    return getAllTweets().then((tweets) =>
         tweets.filter((tweet) => tweet.username === username)
     );
 }
@@ -37,7 +37,7 @@ export async function getAllTweetsById(id) {
     if (!found) {
         return null;
     }
-    const { username, name, url } = await userDatabase.findAlreadyExist(found.userId);
+    const { username, name, url } = await userDatabase.findById(found.userId);
     return { ...found, username, name, url };
 }
 

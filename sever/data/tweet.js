@@ -2,18 +2,14 @@ let tweets = [
     {
         id: '1',
         text: '덴마크 초코초코 우유',
-        createdAt: Date.now().toString(),
-        name: 'Bob',
-        username: 'bob',
-        url: 'https://widgetwhats.com/app/uploads/2019/11/free-profile-photo-whatsapp-1.png',
+        createdAt: new Date().toString(),
+        userId: '1',
     },
     {
         id: '2',
         text: '스웨덴 바나나 우유',
-        createdAt: Date.now().toString(),
-        name: 'rpm',
-        username: 'rpm',
-        // url: 'https://widgetwhats.com/app/uploads/2019/11/free-profile-photo-whatsapp-1.png',
+        createdAt: new Date().toString(),
+        userId: '1',
     }
 ];
 

@@ -33,7 +33,12 @@ export async function getAllTweetsByUsername(username) {
 }
 
 export async function getAllTweetsById(id) {
-    return tweets.find((tweet) => tweet.id === id);
+    const found = tweets.find((tweet) => tweet.id === id);
+    if (!found) {
+        return null;
+    }
+    const { username, name, url } = await userDatabase.findById(found.userId);
+    return { ...found, username, name, url };
 }
 
 export async function createTweet(text, name, username) {

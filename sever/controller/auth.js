@@ -4,6 +4,8 @@ import {} from 'express-async-errors';
 import * as userDatabase from '../data/auth.js';
 
 const bcryptSalt = 10;
+const secret = 'Bp8:M")g8y;Gxv%vP>Q/*s2d3KKmw+Cb';
+
 export async function signup(req, res) {
     const { username, name, email, photo, password } = req.body;
     //아이디 중복 가입 방지
@@ -38,7 +40,11 @@ export async function login(req, res) {
     res.status(200).json({ token, username });
 }    
 
-
-export function me(req, res) {
-
+function createJwtToken(id) {
+    return jwt.sign({ id }, secret, { expiresIn: '2d' });
 }
+
+
+// export function me(req, res) {
+
+// }

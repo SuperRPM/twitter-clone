@@ -14,3 +14,9 @@ let users = [
 export async function findAlreadyExist(usernmae) {
     return users.find((user) => user.user.name === username);
 }
+
+export async function createUser(user) {
+    const created = { ...user, id: Date.now().toString() };
+    users.push(created);
+    return created.id;
+}

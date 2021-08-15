@@ -55,7 +55,7 @@ export async function createTweet(text, userId) {
 export async function updateTweet(id, text) {
     const tweet = tweets.find((tweet) => tweet.id === id)
     tweet && (tweet.text = text);
-    return tweet;
+    return getAllTweetsById(tweet.id);
 }
 
 export async function deleteTweet(id) {

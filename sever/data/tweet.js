@@ -37,7 +37,7 @@ export async function getAllTweetsById(id) {
     if (!found) {
         return null;
     }
-    const { username, name, url } = await userDatabase.findById(found.userId);
+    const { username, name, url } = await userDatabase.findAlreadyExist(found.userId);
     return { ...found, username, name, url };
 }
 

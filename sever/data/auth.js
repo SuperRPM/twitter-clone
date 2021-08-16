@@ -8,6 +8,14 @@ let users = [
         email: 'karina@gmail.com',
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn_BS1xILeuONueloN87f7gLKyvUMytHchkQ&usqp=CAU'
     },
+    {
+        id: '2',
+        username: 'rpm',
+        password: '$2b$10$RnllIVU51e3obDAIny7QhuTNpVNM6o0f5Sj4jjTjtmPCw27Df.Tfq',
+        name: 'rpm',
+        email: 'rpm@gmail.com',
+        url: 'https://pbs.twimg.com/media/E3GwIkdVcAAYGiW.jpg'
+    },
 ]
 
 export async function findByUsername(username) {

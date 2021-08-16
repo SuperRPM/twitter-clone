@@ -16,10 +16,12 @@ export const isAuth = async (req, res, next) => {
         'Bp8:M")g8y;Gxv%vP>Q/*s2d3KKmw+Cb',
         async (error, decoded) => {
             if (error) {
+                console.log(1);
                 return res.status(401).json({ message: 'decode 실패' });
             }
             const user = await userDatabase.findById(decoded.id);
             if(!user) {
+                console.log(2);
                 return res.status(401).json({ message: "그런 유저 없는데?" });
             }
             req.userId = user.id; //req.custonData 새로 등록

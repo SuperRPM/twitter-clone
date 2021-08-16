@@ -36,7 +36,7 @@ export async function login(req, res) {
     if (!isValidPassword) {
         return res.status(401).json({ message: '아이디랑 비밀번호 확인해야쥐? 잘못썼쥐?' });
     }
-    const token = createJwtToken(user.id);
+    const token = createJwtToken(user.id); console.log(token);
     res.status(200).json({ token, username });
 }    
 

@@ -27,6 +27,13 @@ export async function postTweet(req, res) {
 export async function updateTweet(req, res) {
     const id = req.params.id;
     const text = req.body.text;
+    const validTweet = await tweetRepository.getAllTweetsById(id);
+    if (!validTweet) {
+        return res.sendStatus(404);
+    }
+    if (validTweet.userId !== req.userId) {
+        return res.sendStatus
+    }
     const tweet = await tweetRepository.updateTweet(id, text);
     if (tweet) {
         res.status(200).json(tweet);
@@ -37,6 +44,14 @@ export async function updateTweet(req, res) {
 
 export async function removeTweet(req, res) {
     const id = req.params.id;
+    
+    const validTweet = await tweetRepository.getAllTweetsById(id);
+    if (!validTweet) {
+        return res.sendStatus(404);
+    }
+    if (validTweet.userId !== req.userId) {
+        return res.sendStatus
+    }
     await tweetRepository.deleteTweet(id);
     res.sendStatus(204);
 }

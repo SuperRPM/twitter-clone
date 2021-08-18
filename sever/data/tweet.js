@@ -48,7 +48,7 @@ export async function createTweet(text, userId) {
         createdAt: new Date(),
         userId,
     };
-    tweets = [tweet, ...tweets]; console.log(tweet.id);
+    tweets = [tweet, ...tweets];
     return getAllTweetsById(tweet.id);
 }
 

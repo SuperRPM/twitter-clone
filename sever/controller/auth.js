@@ -2,9 +2,8 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import {} from 'express-async-errors';
 import * as userDatabase from '../data/auth.js';
+import { config } from '../config.js';
 
-const bcryptSalt = 10;
-const secret = 'Bp8:M")g8y;Gxv%vP>Q/*s2d3KKmw+Cb';
 
 export async function signup(req, res) {
     const { username, name, email, url, password } = req.body;
@@ -14,7 +13,7 @@ export async function signup(req, res) {
         return res.status(409).json({ message: `${username}은(는) 이미 사용되고 있눈뒈?`});
     }
 
-    const hashed = await bcrypt.hash(password, bcryptSalt);
+    const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
     const userId = await userDatabase.createUser({
         username,
         password: hashed,
@@ -36,12 +35,12 @@ export async function login(req, res) {
     if (!isValidPassword) {
         return res.status(401).json({ message: '아이디랑 비밀번호 확인해야쥐? 잘못썼쥐?' });
     }
-    const token = createJwtToken(user.id); console.log(token);
+    const token = createJwtToken(user.id);
     res.status(200).json({ token, username });
 }    
 
 function createJwtToken(id) {
-    return jwt.sign({ id }, secret, { expiresIn: '2d' });
+    return jwt.sign({ id }, config.jwt.secretKey, { expiresIn: config.jwt.expiresInSec });
 }
 
 

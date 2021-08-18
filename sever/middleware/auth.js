@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import * as userDatabase from '../data/auth.js';
-
+import { config } from '../config.js';
 const AUTH_ERROR = { message: 'Authentication Error' };
 
 export const isAuth = async (req, res, next) => {
@@ -13,7 +13,7 @@ export const isAuth = async (req, res, next) => {
 
     jwt.verify(
         token,
-        'Bp8:M")g8y;Gxv%vP>Q/*s2d3KKmw+Cb',
+        config.jwt.secretKey,
         async (error, decoded) => {
             if (error) {
                 console.log(1);

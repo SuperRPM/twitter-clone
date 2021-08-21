@@ -29,14 +29,18 @@ export async function postTweet(req, res) {
 export async function updateTweet(req, res) {
     const id = req.params.id;
     const text = req.body.text;
+    console.log(1);
     const validTweet = await tweetRepository.getAllTweetsById(id);
+    console.log(validTweet);
     if (!validTweet) {
         return res.sendStatus(404);
-    }
+    } console.log(2);
     if (validTweet.userId !== req.userId) {
         return res.sendStatus
     }
+    console.log(3);
     const tweet = await tweetRepository.updateTweet(id, text);
+    console.log(4);
     if (tweet) {
         res.status(200).json(tweet);
     } else {

@@ -1,65 +1,33 @@
-import * as userDatabase from './auth.js';
-
-let tweets = [
-    {
-        id: '1',
-        text: '덴마크 초코초코 우유',
-        createdAt: new Date().toString(),
-        userId: '1',
-    },
-    {
-        id: '2',
-        text: '스웨덴 바나나 우유',
-        createdAt: new Date().toString(),
-        userId: '1',
-    }
-];
+import { db } from '../db/database.js';
 
 export async function getAllTweets() {
-    return Promise.all(
-        tweets.map(async (tweet) => {
-            const { username, name, url } = await userDatabase.findById(
-                tweet.userId
-            );
-            return { ...tweet, username, name, url };
-        })
-    )
+    return db.execute('SELECT tw.id, tw.text, tw.createdAt, tw.userId, us.username, us.name, us.url FROM tweets as tw JOIN users as us ON tw.userId=us.id ORDER BY tw.createdAt DESC'
+    ).then(result => result[0]);
 }
 
 export async function getAllTweetsByUsername(username) {
-    return getAllTweets().then((tweets) =>
-        tweets.filter((tweet) => tweet.username === username)
-    );
+    return db.execute('SELECT tw.id, tw.text, tw.createdAt, tw.userId, us.username, us.name, us.url FROM tweets as tw JOIN users as us ON tw.userId=us.id WHERE username=? ORDER BY tw.createdAt DESC', [username])
+    .then((result) => result[0]);
 }
 
 export async function getAllTweetsById(id) {
-    const found = tweets.find((tweet) => tweet.id === id);
-    if (!found) {
-        return null;
-    }
-    const { username, name, url } = await userDatabase.findById(found.userId);
-    return { ...found, username, name, url };
+    return db.execute('SELECT tw.id, tw.text, tw.createdAt, tw.userId, us.username, us.name, us.url FROM tweets as tw JOIN users as us ON tw.userId=us.id WHERE tw.id=?', [id])
+    .then(result => result[0][0]);
 }
 
 export async function createTweet(text, userId) {
-    const tweet = {
-        id: Date.now().toString(),
-        text,
-        createdAt: new Date(),
-        userId,
-    };
-    tweets = [tweet, ...tweets];
-    return getAllTweetsById(tweet.id);
+    const createdAt = new Date();
+    return db.execute('INSERT INTO tweets (text, createdAt, userId) VALUES (?,?,?)', [text, createdAt, userId])
+    .then(result => getAllTweetsById(result[0].insertId));
 }
 
 export async function updateTweet(id, text) {
-    const tweet = tweets.find((tweet) => tweet.id === id)
-    tweet && (tweet.text = text);
-    return getAllTweetsById(tweet.id);
+    return db.execute('UPDATE tweets SET text=? WHERE id=?', [text, id])
+    .then(result => getAllTweetsById(id));
 }
 
 export async function deleteTweet(id) {
-    
-    const indexToDelete = tweets.findIndex(function(tweet) {return tweet.id === id});
-    if (indexToDelete >= 0) {tweets.splice(indexToDelete, 1)}
+    return db.execute('DELETE FROM tweets WHERE id=?', [id])
+    // const indexToDelete = tweets.findIndex(function(tweet) {return tweet.id === id});
+    // if (indexToDelete >= 0) {tweets.splice(indexToDelete, 1)}
 }

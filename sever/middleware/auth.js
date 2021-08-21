@@ -10,13 +10,11 @@ export const isAuth = async (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
-
     jwt.verify(
         token,
         config.jwt.secretKey,
         async (error, decoded) => {
             if (error) {
-                console.log(1);
                 return res.status(401).json({ message: 'decode 실패' });
             }
             const user = await userDatabase.findById(decoded.id);
